@@ -6,10 +6,11 @@ using System.Text;
 
 namespace DataModel
 {
-    public class Park
+    public class Park : Place
     {
         //":null,"":null,"":null,"
         //private int _AquaFeatPool;
+        
         public string Park_Name { get; set;}
 
         public string Park_Type { get; set; }
@@ -71,7 +72,16 @@ namespace DataModel
         public string Location_1 { get; set; }
         public int FID { get; set; }
 
-
+        public Park():base()
+        {
+            base.Name = Park_Name;
+            base.location = Location_1;
+            base.zip = Zip_Code.ToString();
+        }
+        public override string ToString()
+        {
+            return Name + location + Type + zip;
+        }
 
 
 

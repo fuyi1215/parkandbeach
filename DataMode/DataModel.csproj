@@ -36,7 +36,9 @@
   <ItemGroup>
     <Compile Include="Beach.cs" />
     <Compile Include="BoolConverter.cs" />
+    <Compile Include="Collection.cs" />
     <Compile Include="Park.cs" />
+    <Compile Include="Place.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
