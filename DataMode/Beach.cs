@@ -9,6 +9,7 @@ namespace DataModel
     public class Beach : Place
     {
         
+        public int ID { get; set; }
         public string phone { get; set; }
 
         public string County { get; set; }
@@ -45,6 +46,7 @@ namespace DataModel
         public static Beach FromCsv(string csvLine)
         {
             string[] values = csvLine.Split(',');
+            
             if (values.Length < 9)
             {
                 return null;
@@ -52,7 +54,7 @@ namespace DataModel
             else
             {
                 Beach beach = new Beach();
-                beach.id = Int32.TryParse(values[0], out beach.id) ? beach.id : 0;
+                beach.ID = string.IsNullOrEmpty(values[0]) ? 0 : Convert.ToInt32(values[0]);
                 beach.Name = values[1];
                 beach.phone = values[2];
                 beach.County = values[3];

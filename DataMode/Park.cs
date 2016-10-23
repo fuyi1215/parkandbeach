@@ -74,6 +74,7 @@ namespace DataModel
 
         public Park():base()
         {
+            FID = id;
             base.Name = Park_Name;
             base.Location = Location_1;
             base.Zip = Zip_Code;
@@ -81,6 +82,7 @@ namespace DataModel
 
         public Park(string Name, string location,string type, int zip):base(Name,location,type,zip)
         {
+            FID = id;
 
         }
 
@@ -150,7 +152,7 @@ namespace DataModel
     }
         public override string ToString()
         {
-            return Park_Name + Location_1 + Park_Type + Zip_Code;
+            return FID + Park_Name + Location_1 + Park_Type + Zip_Code;
         }
 
 

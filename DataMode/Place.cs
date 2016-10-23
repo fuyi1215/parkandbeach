@@ -8,7 +8,7 @@ namespace DataModel
 {
     public class Place
     {
-        protected int id;
+        protected static int id = 0;
         public string Name;
         public string Location;
         public string Type;
@@ -17,11 +17,12 @@ namespace DataModel
 
         public Place()
         {
+            id++;
 
         }
         public Place(string name, string loc, string type, int zip)
         {
-
+            id++;
         }
 
         public override string ToString()

@@ -48,10 +48,16 @@ namespace P3_FRANKYIFU
         }
         private static void load()
         {
-            var url = "https://data.michigan.gov/api/views/aiht-57sm/rows.csv?accessType=DOWNLOAD";
-            load(url, PlaceType.Beach);
-                url = "https://docs.google.com/spreadsheets/d/1kRexxHe4HAUXWoN-8yC3k0FCMReBew3aA4swmCvIqKI/pub?output=csv";
+            
+            var url = "https://docs.google.com/spreadsheets/d/1kRexxHe4HAUXWoN-8yC3k0FCMReBew3aA4swmCvIqKI/pub?output=csv";
             load(url, PlaceType.Park);
+                url = "https://data.michigan.gov/api/views/aiht-57sm/rows.csv?accessType=DOWNLOAD";
+            load(url, PlaceType.Beach);
+
+        }
+        private List<Place> GetAllOrder()
+        {
+            return Parks.Cast<Place>().Concat(Beaches.Cast<Place>()).ToList();
         }
 
         //https://data.michigan.gov/api/views/aiht-57sm/rows.csv?accessType=DOWNLOAD
@@ -75,8 +81,7 @@ namespace P3_FRANKYIFU
                 var parkRow = _content?.Split('\n').Skip(1);
 
                 Parks = new List<Park>();
-                Parks = parkRow.Skip(0)
-                               .Select(v => Park.FromCsv(v))
+                Parks = parkRow.Select(v => Park.FromCsv(v))
                                .ToList();
             }
             else
@@ -116,7 +121,12 @@ namespace P3_FRANKYIFU
             foreach (var park in Parks)
             {
                 if(park != null)
-                Console.WriteLine(park.ToString());
+                    Console.WriteLine(park.ToString());
+            }
+            foreach(var beach in Beaches)
+            {
+                if (beach != null)
+                    Console.WriteLine(beach.ToString());
             }
         }
         private static void edit()
@@ -143,6 +153,7 @@ namespace P3_FRANKYIFU
         private static void add()
         {
             Console.WriteLine("Option 1) add a park");
+            Console.WriteLine("Option 2) add a beach");
             var input = Console.ReadLine();
             switch (input)
             {
