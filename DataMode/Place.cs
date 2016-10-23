@@ -8,17 +8,26 @@ namespace DataModel
 {
     public class Place
     {
-        protected string id;
-        protected string Name;
-        protected string location;
-        protected string Type;
-        protected string zip;
+        protected int id;
+        public string Name;
+        public string Location;
+        public string Type;
+        public int Zip;
 
+
+        public Place()
+        {
+
+        }
+        public Place(string name, string loc, string type, int zip)
+        {
+
+        }
 
         public override string ToString()
         {
             
-            return  id + Name + location + Type + zip;
+            return  id + Name + Location + Type + Zip.ToString();
         }
 
     }
