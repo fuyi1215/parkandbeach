@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace P3_FRANKYIFU
 {
@@ -20,7 +21,7 @@ namespace P3_FRANKYIFU
         //private static Collection placelist;
         private static List<Park> Parks;
         private static List<Beach> Beaches;
-        private static List<Place> Places;
+        //private static List<Place> Places;
         private static readonly int[] _indexWeNeed = { 0, 1, 47, 2 };
         static void Main(string[] args)
         {
@@ -51,7 +52,7 @@ namespace P3_FRANKYIFU
             
             var url = "https://docs.google.com/spreadsheets/d/1kRexxHe4HAUXWoN-8yC3k0FCMReBew3aA4swmCvIqKI/pub?output=csv";
             load(url, PlaceType.Park);
-                url = "https://data.michigan.gov/api/views/aiht-57sm/rows.csv?accessType=DOWNLOAD";
+               url = "https://data.michigan.gov/api/views/aiht-57sm/rows.csv?accessType=DOWNLOAD";
             load(url, PlaceType.Beach);
 
         }
@@ -70,6 +71,7 @@ namespace P3_FRANKYIFU
                 {
                     _content =
                         url.DownloadString(urlstring);
+
                 }
                 catch (WebException e)
                 {
@@ -78,20 +80,19 @@ namespace P3_FRANKYIFU
             }
             if (Ptype == PlaceType.Park)
             {
-                var parkRow = _content?.Split('\n').Skip(1);
+                var parkRow = _content.Split('\n').Skip(1);
 
                 Parks = new List<Park>();
                 Parks = parkRow.Select(v => Park.FromCsv(v))
-                               .ToList();
+                               .OfType<Park>().ToList();
             }
             else
             {
                 var BeachRow = _content?.Split('\n').Skip(1);
 
                 Beaches = new List<Beach>();
-                Beaches = BeachRow.Skip(0)
-                               .Select(v => Beach.FromCsv(v))
-                               .ToList();
+                Beaches = BeachRow.Select(v => Beach.FromCsv(v))
+                                  .ToList();
             }
             //foreach (var i in parkRow)
             //{
@@ -103,7 +104,24 @@ namespace P3_FRANKYIFU
             //    //Parks.Add(new Park(result));
             //}
         }
-    
+        //private static void load(string urlstring, PlaceType pType)
+        //{
+        //    using (var url = new WebClient())
+        //    {
+        //        try
+        //        {
+        //            _content =
+        //                url.DownloadString(urlstring);
+
+        //        }
+        //        catch (WebException e)
+        //        {
+        //            throw e;
+        //        }
+        //    }
+        //    Beaches = JsonConvert.DeserializeObject<List<Beach>>(_content);
+
+        //}
 
         private static void search()
         {

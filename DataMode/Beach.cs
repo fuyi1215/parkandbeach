@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DataModel
@@ -45,7 +46,23 @@ namespace DataModel
         }
         public static Beach FromCsv(string csvLine)
         {
-            string[] values = csvLine.Split(',');
+            Regex csvSplit = new Regex("(?:^|,)(\"(?:[^\"]+|\"\")*\"|[^,]*)");
+            List<string> list = new List<string>();
+            string curr = null;
+            foreach (Match match in csvSplit.Matches(csvLine))
+            {
+                curr = match.Value;
+                if (0 == curr.Length)
+                {
+                    list.Add("");
+                }
+
+                list.Add(curr.TrimStart(','));
+            }
+
+            string[] values = list.ToArray<string>();
+
+            //string[] values = csvLine.Split(',');
             
             if (values.Length < 9)
             {
@@ -69,7 +86,7 @@ namespace DataModel
         }
         public override string ToString()
         {
-            return Name + Location + base.Type + base.Zip + longlatitude.ToString();
+            return Name + Location + base.Type + " Location: " + longlatitude.ToString();
         }
     }
 }
