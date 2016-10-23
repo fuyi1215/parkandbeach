@@ -11,6 +11,7 @@ namespace DataModel
     {
         
         public int ID { get; set; }
+        public int beachID {get; set;}
         public string phone { get; set; }
 
         public string County { get; set; }
@@ -30,6 +31,7 @@ namespace DataModel
        
         public Beach() : base()
         {
+            ID = id;
             base.Name = "";
             base.Location = "";
             base.Type = "Beach";
@@ -38,6 +40,7 @@ namespace DataModel
         public Beach(string Name, string Location, string Type, int Zip)
             :base(Name,Location,Type,Zip)
         {
+            ID = id;
             base.Name = Name;
             base.Location = Location;
             base.Type = "Beach";
@@ -46,21 +49,10 @@ namespace DataModel
         }
         public static Beach FromCsv(string csvLine)
         {
-            Regex csvSplit = new Regex("(?:^|,)(\"(?:[^\"]+|\"\")*\"|[^,]*)");
-            List<string> list = new List<string>();
-            string curr = null;
-            foreach (Match match in csvSplit.Matches(csvLine))
-            {
-                curr = match.Value;
-                if (0 == curr.Length)
-                {
-                    list.Add("");
-                }
 
-                list.Add(curr.TrimStart(','));
-            }
 
-            string[] values = list.ToArray<string>();
+            string[] values = Csvsplit(csvLine);
+
 
             //string[] values = csvLine.Split(',');
             
@@ -71,7 +63,7 @@ namespace DataModel
             else
             {
                 Beach beach = new Beach();
-                beach.ID = string.IsNullOrEmpty(values[0]) ? 0 : Convert.ToInt32(values[0]);
+                beach.beachID = string.IsNullOrEmpty(values[0]) ? 0 : Convert.ToInt32(values[0]);
                 beach.Name = values[1];
                 beach.phone = values[2];
                 beach.County = values[3];
@@ -86,7 +78,8 @@ namespace DataModel
         }
         public override string ToString()
         {
-            return Name + Location + base.Type + " Location: " + longlatitude.ToString();
+            return  string.Format("ID:{0,3}  Name:{1,10}  Park Type: {2,5}  PhoneNumber:{3,10}  Location: {4}"
+                                   ,ID, Name, base.Type, phone, longlatitude.ToString());
         }
     }
 }

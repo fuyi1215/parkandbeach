@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DataModel
@@ -32,7 +33,26 @@ namespace DataModel
         public override string ToString()
         {
             
-            return  id + Name + Location + Type + Zip.ToString();
+            return string.Format("ID:{0,3}  Name:{1,10},Park Type: {2,10} Zip:{3,7} Location: {4}"
+                                    , id, Name, Type , Zip.ToString(), Location);
+        }
+
+        public static string[] Csvsplit(string csvline)
+        {
+            Regex csvSplit = new Regex("(?:^|,)(\"(?:[^\"]+|\"\")*\"|[^,]*)");
+            List<string> list = new List<string>();
+            string curr = null;
+            foreach (Match match in csvSplit.Matches(csvline))
+            {
+                curr = match.Value;
+                if (0 == curr.Length)
+                {
+                    list.Add("");
+                }
+
+                list.Add(curr.TrimStart(','));
+            }
+            return list.ToArray<string>();
         }
 
     }
