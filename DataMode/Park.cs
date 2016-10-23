@@ -83,6 +83,10 @@ namespace DataModel
         public Park(string Name, string location,string type, int zip):base(Name,location,type,zip)
         {
             FID = id;
+            Park_Name = Name;
+            Location_1 = location;
+            Park_Type = type;
+            Zip_Code = zip; 
 
         }
 
@@ -152,7 +156,7 @@ namespace DataModel
     }
         public override string ToString()
         {
-            return FID + Park_Name + Location_1 + Park_Type + Zip_Code;
+            return string.Format( "ID:{0,3}  Name:{1,10},Park Type: {2,10} Zip:{3,7} Location: {4}" ,FID, Park_Name,  Park_Type , Zip_Code,Location_1);
         }
 
 

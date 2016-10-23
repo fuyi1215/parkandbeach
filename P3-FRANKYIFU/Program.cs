@@ -19,8 +19,8 @@ namespace P3_FRANKYIFU
     {
         private static string _content;
         //private static Collection placelist;
-        private static List<Park> Parks;
-        private static List<Beach> Beaches;
+        private static List<Park> Parks = new List<Park>();
+        private static List<Beach> Beaches = new List<Beach>();
         //private static List<Place> Places;
         private static readonly int[] _indexWeNeed = { 0, 1, 47, 2 };
         static void Main(string[] args)
@@ -82,7 +82,7 @@ namespace P3_FRANKYIFU
             {
                 var parkRow = _content.Split('\n').Skip(1);
 
-                Parks = new List<Park>();
+                //Parks = new List<Park>();
                 Parks = parkRow.Select(v => Park.FromCsv(v))
                                .OfType<Park>().ToList();
             }
@@ -90,7 +90,7 @@ namespace P3_FRANKYIFU
             {
                 var BeachRow = _content?.Split('\n').Skip(1);
 
-                Beaches = new List<Beach>();
+                //Beaches = new List<Beach>();
                 Beaches = BeachRow.Select(v => Beach.FromCsv(v))
                                   .ToList();
             }

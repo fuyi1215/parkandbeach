@@ -23,6 +23,10 @@ namespace DataModel
         public Place(string name, string loc, string type, int zip)
         {
             id++;
+            Name = name;
+            Location = loc;
+            Type = type;
+            Zip = zip; 
         }
 
         public override string ToString()
