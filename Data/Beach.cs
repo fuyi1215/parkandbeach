@@ -12,22 +12,22 @@ namespace DataModel
         
         public int ID { get; set; }
         public int beachID {get; set;}
-        public string phone { get; set; }
+        public string phone { get; set; } = string.Empty;
 
-        public string County { get; set; }
+        public string County { get; set; } = string.Empty;
 
-        public string EnteranceFee { get; set; }
+        public string EnteranceFee { get; set; } = string.Empty;
 
-        public string PermitRequired { get; set; }
+        public string PermitRequired { get; set; } = string.Empty;
 
-        public string UnitDescription { get; set; }
+        public string UnitDescription { get; set; } = string.Empty;
 
-        public string TotalNumofSites { get; set; }
-        public string Description { get; set; }
-        public string Location_1 { get; set; }
+        public string TotalNumofSites { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string Location_1 { get; set; } = string.Empty;
 
 
-        public string longlatitude { get; set; }
+        public string longlatitude { get; set; } = string.Empty;
        
         public Beach() : base()
         {
@@ -37,13 +37,14 @@ namespace DataModel
             base.Type = "Beach";
             base.Zip = 0;
         }
-        public Beach(string Name, string Location, string Type, int Zip)
-            :base(Name,Location,Type,Zip)
+        public Beach(string Name, string Location, string Phone, int Zip)
+            :base(Name,Location,"Beach",Zip)
         {
             ID = id;
             base.Name = Name;
             base.Location = Location;
-            base.Type = "Beach";
+            //base.Type = "Beach";
+            phone= Phone;
             base.Zip = Zip;
             
         }

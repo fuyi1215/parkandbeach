@@ -93,7 +93,7 @@ namespace DataModel
         public static Park FromCsv(string csvLine)
         {
             
-            string[] values = csvLine.Split(',');
+            string[] values = Csvsplit(csvLine);
             if (values.Length < 48)
             {
                 return null;
@@ -149,7 +149,7 @@ namespace DataModel
                 park.Water_Access__General = string.IsNullOrEmpty(values[45]) ? 0 : Convert.ToInt32(values[45]);
                 park.Water_Feature = string.IsNullOrEmpty(values[46]) ? 0 : Convert.ToInt32(values[46]);
                 park.Location_1 = values[47];
-                //park.FID = string.IsNullOrEmpty(values[48]) ? 0 : Convert.ToInt32(values[48]);
+                park.FID = string.IsNullOrEmpty(values[48]) ? 0 : Convert.ToInt32(values[48]);
                 return park;
             }
        

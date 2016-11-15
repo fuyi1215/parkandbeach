@@ -38,9 +38,9 @@ namespace P3_FRANKYIFU
                 Console.WriteLine("Option 5) exit");
                 var input = Console.ReadLine();
                 if (input == "0")  placeDB.load();
-                else if (input == "1") add();
-                else if (input == "2") edit();
-                else if (input == "3") search();
+                else if (input == "1") placeDB.add();
+                else if (input == "2") placeDB.edit();
+                else if (input == "3") placeDB.search();
                 else if (input == "4") placeDB.display();
                 else if (input == "5") break;
                 else
@@ -124,78 +124,11 @@ namespace P3_FRANKYIFU
 
         //}
 
-        private static void search()
-        {
-            Console.WriteLine("Enter search text:");
-            var search = Console.ReadLine();
-            int i;
-            var results = Parks.FindAll((r => (int.TryParse(search, out i) && (r.FID == i || r.Zip_Code == i) || r.Park_Type.Contains(search) || r.Park_Name.Contains(search) || r.Location_1.Contains(search))));
-            Console.WriteLine("\nResults: \n");
-            foreach (var park in results)
-                Console.WriteLine(park.ToString());
-        }
+       
        
 
-        private static void edit()
-        {
 
-            Console.WriteLine("FID of park to edit:");
-            var fid = Console.ReadLine();
-            Console.WriteLine("Name of the park:");
-            var name = Console.ReadLine();
-            Console.WriteLine("Type of the park:");
-            var type = Console.ReadLine();
-            Console.WriteLine("Location of the park:");
-            var loc = Console.ReadLine();
-            Console.WriteLine("Zip of the park:");
-            var zip = Console.ReadLine();
-            var park = Parks.Find(p => p.FID == int.Parse(fid));
-            if (name.Length > 0) park.Park_Name = name;
-            if (type.Length > 0) park.Park_Type = type;
-            if (loc.Length > 0) park.Location_1 = loc;
-            if (zip.Length > 0) park.Zip_Code = int.Parse(zip);
-
-            Console.WriteLine("\nResults: \n" + park.ToString());
-        }
-        private static void add()
-        {
-            Console.WriteLine("Option 1) add a park");
-            Console.WriteLine("Option 2) add a beach");
-            var input = Console.ReadLine();
-            switch (input)
-            {
-                case "1":
-                    Console.WriteLine("Name of the park:");
-                    var name = Console.ReadLine();
-                    Console.WriteLine("Type of the park:");
-                    var type = Console.ReadLine();
-                    Console.WriteLine("Location of the park:");
-                    var loc = Console.ReadLine();
-                    Console.WriteLine("Zip of the park:");
-                    var zip = Console.ReadLine();
-                    Parks.Add(new Park(name, type, loc, Int32.Parse(zip)));
-
-                    //parks.Add(new Park(name, type, loc, int.Parse(zip)));
-                    Console.WriteLine("\nResults: \n" + Parks.Find(P => P.Park_Name == name).ToString());
-                    break;
-                case "2":
-                    Console.WriteLine("Name of the Beach:");
-                    var Bname = Console.ReadLine();
-                    Console.WriteLine("Type of the Beach:");
-                    var Btype = Console.ReadLine();
-                    Console.WriteLine("Location of the Beach:");
-                    var Bloc = Console.ReadLine();
-                    Console.WriteLine("Zip of the Beach:");
-                    var Bzip = Console.ReadLine();
-                    Beaches.Add(new Beach(Bname, Btype, Bloc, Int32.Parse(Bzip)));
-
-                    //parks.Add(new Park(name, type, loc, int.Parse(zip)));
-                    Console.WriteLine("\nResults: \n" + Beaches.Find(P => P.Name == Bname).ToString());
-                    break;
-                default:
-                    break;
-            } 
-
+       
            
         }
         
