@@ -53,6 +53,12 @@ namespace DataModel
             }
             return list.ToArray<string>();
         }
+        public static string[] CsvRow(string csv)
+        {
+            return Regex.Split(csv, "(?=(?:(?:[^\"]*\"){2})*[^\"]*$)\\n");
+
+        }
+
 
     }
 
