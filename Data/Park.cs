@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +8,7 @@ namespace DataModel
 {
     public class Park : Place
     {
-        //":null,"":null,"":null,"
-        //private int _AquaFeatPool;
+        
         
         public string Park_Name { get; set;}
 
@@ -75,9 +74,9 @@ namespace DataModel
         public Park():base()
         {
             FID = id;
-            base.Name = Park_Name;
-            base.Location = Location_1;
-            base.Zip = Zip_Code;
+            base.name = Park_Name;
+            base.thelocation = Location_1;
+            base.zip_code = Zip_Code;
         }
 
         public Park(string Name, string location,string type, int zip):base(Name,location,type,zip)

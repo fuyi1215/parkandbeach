@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,9 +14,7 @@ namespace DataModel
         public string Name;
         public string Location;
         public string Type;
-        public string Zip { set { if (Regex.Match(value,"^\\d{ 5} (?:[-\\s]\\d{ 4})?$" ).Success)
-                                _zip = value;
-            } get { return _zip; } }
+        public int Zip;
 
 
         public Place()
@@ -32,6 +30,63 @@ namespace DataModel
             Type = type;
             Zip = zip; 
         }
+        //property to get or set name
+        public string name
+        {
+            get
+            {
+                return Name;
+            } 
+            set
+            {
+                Name = value;
+            } 
+        }
+
+        //property to get or set location
+        public string thelocation
+        {
+            get
+            {
+                return Location;
+            }
+            set
+            {
+                Location = value;
+            }
+        }
+
+        //property to get or set location
+        public string theType
+        {
+            get
+            {
+                return Type;
+            }
+            set
+            {
+                Type = value;
+            }
+        }
+
+        //property to get or set zip
+        public int  zip_code
+        {
+            get
+            {
+                return Zip;
+            }
+            set
+            {
+                
+                Zip = value;
+            }
+        }
+
+
+
+
+
 
         public override string ToString()
         {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -77,6 +77,28 @@ namespace DataModel
                     break;
             }
 
+
+        public void search()
+        {
+            Console.WriteLine("Enter search text:");
+            var search = Console.ReadLine();
+            int i;
+
+             var Parksresults = Placelist.OfType<Park>().ToList<Park>().FindAll(
+                 (r => (int.TryParse(search, out i) && (r.FID == i || r.Zip_Code == i) 
+                 || r.Park_Type.Contains(search) 
+                 || r.Park_Name.Contains(search) 
+                 || r.Location_1.Contains(search))));
+            var beachesreults = Placelist.OfType<Beach>().ToList<Beach>().FindAll(
+                r => (int.TryParse(search, out i) && (r.ID == i || r.Zip == i)
+                 || r.phone.Contains(search)
+                 || r.Name.Contains(search)
+                 || r.Location.Contains(search)));
+            Console.WriteLine("\nResults: \n");
+            foreach (var park in Parksresults)
+                Console.WriteLine(park.ToString());
+            foreach (var beach in beachesreults)
+                Console.WriteLine(beach.ToString());
         }
         public void edit()
         {
@@ -118,7 +140,7 @@ namespace DataModel
                     var Bzip = Console.ReadLine();
                     var Beach = Placelist.OfType<Beach>().ToList<Beach>().Find(p => p.ID == int.Parse(Bid));
                     if (Bname.Length > 0) Beach.Name = Bname;
-                    if (Bphone.Length > 0) Beach.phone = Bphone;
+                    if (Bphone.Length > 0)Beach.phone = Bphone;
                     if (Bloc.Length > 0) Beach.Location = Bloc;
                     if (Bzip.Length > 0) Beach.Zip = int.Parse(Bzip);
 
@@ -252,7 +274,7 @@ namespace DataModel
             List<Beach> beachlist = new List<Beach>();
             foreach(var Beach in Placelist.OfType<Beach>())
             {
-                if(Beach.Name.Contains(value))
+                if(Beach.name.Contains(value))
                 {
                     beachlist.Add(Beach);
                 }
