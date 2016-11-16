@@ -43,7 +43,7 @@ namespace DataModel
             ID = id;
             base.Name = Name;
             base.Location = Location;
-            //base.Type = "Beach";
+            base.Type = "Beach";
             phone= Phone;
             base.Zip = Zip;
             

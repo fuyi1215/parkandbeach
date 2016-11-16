@@ -37,12 +37,14 @@ namespace P3_FRANKYIFU
                 Console.WriteLine("Option 4) Display count of all the stored items");
                 Console.WriteLine("Option 5) exit");
                 var input = Console.ReadLine();
-                if (input == "0")  placeDB.load();
+                if (input == "0") placeDB.load();
                 else if (input == "1") placeDB.add();
                 else if (input == "2") placeDB.edit();
                 else if (input == "3") placeDB.search();
                 else if (input == "4") placeDB.display();
-                else if (input == "5") break;
+                else if (input == "5") placeDB.Linq();
+                else if (input == "6") break;
+
                 else
                     Console.WriteLine("Invalid Input. Please try again");
                 Console.WriteLine("\n\n");
