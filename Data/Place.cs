@@ -9,11 +9,14 @@ namespace DataModel
 {
     public class Place
     {
+        private string _zip;
         protected static int id = 0;
         public string Name;
         public string Location;
         public string Type;
-        public int Zip;
+        public string Zip { set { if (Regex.Match(value,"^\\d{ 5} (?:[-\\s]\\d{ 4})?$" ).Success)
+                                _zip = value;
+            } get { return _zip; } }
 
 
         public Place()
@@ -40,6 +43,7 @@ namespace DataModel
         public static string[] Csvsplit(string csvline)
         {
             Regex csvSplit = new Regex("(?:^|,)(\"(?:[^\"]+|\"\")*\"|[^,]*)");
+            
             List<string> list = new List<string>();
             string curr = null;
             foreach (Match match in csvSplit.Matches(csvline))
