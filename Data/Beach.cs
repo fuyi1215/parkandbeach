@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,20 +32,20 @@ namespace DataModel
         public Beach() : base()
         {
             ID = id;
-            base.Name = "";
-            base.Location = "";
-            base.Type = "Beach";
-            base.Zip = 0;
+            base.name = "";
+            base.thelocation = "";
+            base.theType = "Beach";
+            base.zip_code = 0;
         }
         public Beach(string Name, string Location, string Phone, int Zip)
             :base(Name,Location,"Beach",Zip)
         {
             ID = id;
-            base.Name = Name;
-            base.Location = Location;
+            base.name = Name;
+            base.thelocation = Location;
             //base.Type = "Beach";
             phone= Phone;
-            base.Zip = Zip;
+            base.zip_code = Zip;
             
         }
         public static Beach FromCsv(string csvLine)
@@ -65,7 +65,7 @@ namespace DataModel
             {
                 Beach beach = new Beach();
                 beach.beachID = string.IsNullOrEmpty(values[0]) ? 0 : Convert.ToInt32(values[0]);
-                beach.Name = values[1];
+                beach.name = values[1];
                 beach.phone = values[2];
                 beach.County = values[3];
                 beach.EnteranceFee = values[4];
@@ -80,7 +80,7 @@ namespace DataModel
         public override string ToString()
         {
             return  string.Format("ID:{0,3}  Name:{1,10}  Park Type: {2,5}  PhoneNumber:{3,10}  Location: {4}"
-                                   ,ID, Name, base.Type, phone, longlatitude.ToString());
+                                   ,ID, name, base.theType, phone, longlatitude.ToString());
         }
 
         
