@@ -74,6 +74,7 @@ namespace DataModel
         public Park():base()
         {
             FID = id;
+            base.theType = Park_Type;
             base.name = Park_Name;
             base.thelocation = Location_1;
             base.zip_code = Zip_Code;
@@ -101,8 +102,11 @@ namespace DataModel
             {
                 Park park = new Park();
                 park.Park_Name = values[0];
-                park.Park_Type = values[1];
+                park.name = park.Park_Name;
+                park.Park_Type = string.IsNullOrEmpty(values[1]) ? string.Empty: values[1] ;
+                park.theType = park.Park_Type;
                 park.Zip_Code = Convert.ToInt32(values[2]);
+                park.zip_code = park.Zip_Code;
                 park.Aqua_Feat__Pool = string.IsNullOrEmpty(values[3]) ? 0 : Convert.ToInt32(values[3]);
                 park.Aqua_Feat__Spray = string.IsNullOrEmpty(values[4])? 0 : Convert.ToInt32(values[4]);
                 park.Backstop__Practice = values[5];
@@ -148,6 +152,7 @@ namespace DataModel
                 park.Water_Access__General = string.IsNullOrEmpty(values[45]) ? 0 : Convert.ToInt32(values[45]);
                 park.Water_Feature = string.IsNullOrEmpty(values[46]) ? 0 : Convert.ToInt32(values[46]);
                 park.Location_1 = values[47];
+                park.thelocation = park.Location_1.Substring(0,park.Location_1.IndexOf('('));
                 park.FID = string.IsNullOrEmpty(values[48]) ? 0 : Convert.ToInt32(values[48]);
                 return park;
             }

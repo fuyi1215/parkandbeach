@@ -9,17 +9,21 @@ namespace DataModel
 {
     public class Place
     {
-        private string _zip;
+        //private string _zip;
         protected static int id = 0;
-        public string Name;
-        public string Location;
-        public string Type;
-        public int Zip;
+        private string Name;
+        private string Location;
+        private string Type;
+        private int Zip;
 
 
         public Place()
         {
             id++;
+            Name = string.Empty;
+            Location = string.Empty;
+            Type = string.Empty;
+            Zip = 0;
 
         }
         public Place(string name, string loc, string type, int zip)

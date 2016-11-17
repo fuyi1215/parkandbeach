@@ -41,8 +41,8 @@ namespace DataModel
             :base(Name,Location,"Beach",Zip)
         {
             ID = id;
-            base.Name = Name;
-            base.Location = Location;
+            base.name = Name;
+            base.thelocation = Location;
             //base.Type = "Beach";
             phone= Phone;
             base.zip_code = Zip;
@@ -64,6 +64,7 @@ namespace DataModel
             else
             {
                 Beach beach = new Beach();
+                beach.theType = "Beach";
                 beach.beachID = string.IsNullOrEmpty(values[0]) ? 0 : Convert.ToInt32(values[0]);
                 beach.name = values[1];
                 beach.phone = values[2];
