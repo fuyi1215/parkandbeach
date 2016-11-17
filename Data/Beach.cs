@@ -12,7 +12,7 @@ namespace DataModel
         
         public int ID { get; set; }
         public int beachID {get; set;}
-        public string phone { get; set; } = string.Empty;
+        private string phone ;
 
         public string County { get; set; } = string.Empty;
 
@@ -35,9 +35,9 @@ namespace DataModel
             base.name = "";
             base.thelocation = "";
             base.theType = "Beach";
-            base.zip_code = 0;
+            longlatitude = "";
         }
-        public Beach(string Name, string Location, string Phone, int Zip)
+        public Beach(string Name, string Location, string Phone, string Zip,string longlat)
             :base(Name,Location,"Beach",Zip)
         {
             ID = id;
@@ -46,8 +46,21 @@ namespace DataModel
             //base.Type = "Beach";
             phone= Phone;
             base.zip_code = Zip;
+            longlatitude = longlat;
             
         }
+        public string phoneNumber
+        {
+            get { return phone; }
+            set {
+                string text = "(124) 652 9658";
+
+                if (!Regex.Match(text, @"^[1-9]\d{2}-[1-9]\d{2}-\d{4}$").Success)
+                {
+                    Console.WriteLine("Invalid phone number");
+                }
+            }
+        } 
         public static Beach FromCsv(string csvLine)
         {
 
