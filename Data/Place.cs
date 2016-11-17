@@ -11,9 +11,9 @@ namespace DataModel
     {
         private string Zip;
         protected static int id = 0;
-        public string Name;
-        public string Location;
-        public string Type;
+        private string Name;
+        private string Location;
+        private string Type;
        
 
 

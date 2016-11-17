@@ -24,7 +24,7 @@ namespace DataModel
 
         public string TotalNumofSites { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public string Location_1 { get; set; } = string.Empty;
+        //public string Location_1 { get; set; } = string.Empty;
 
 
         public string longlatitude { get; set; } = string.Empty;
