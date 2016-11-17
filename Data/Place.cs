@@ -99,7 +99,7 @@ namespace DataModel
         {
             
             return string.Format("ID:{0,3}  Name:{1,10},Park Type: {2,10} Zip:{3,7} Location: {4}"
-                                    , id, Name, Type , Zip.ToString(), Location);
+                                    , id, Name, Type , Zip, Location);
         }
 
         public static string[] Csvsplit(string csvline)
