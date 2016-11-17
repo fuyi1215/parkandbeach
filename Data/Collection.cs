@@ -169,14 +169,14 @@ namespace DataModel
             switch (input)
             {
                 case "1":
-                    var TN_B= Placelist.OfType<Beach>().ToList().FindAll(v => v.Type == "Beach").Count();
-                    Console.WriteLine("Total Number of beach:"+ TN_B.ToString());
+                    var TN_B = Placelist.OfType<Beach>().ToList().FindAll(v => v.Type == "Beach").Count();
+                    Console.WriteLine("Total Number of beach:" + TN_B.ToString());
                     break;
                 case "2":
                     Console.WriteLine("Enter the type Parks (if not enter it will display all");
                     var type = Console.ReadLine();
                     int TN_T = 0;
-                    if (type != null)
+                    if (type == null)
                     {
                         TN_T = Placelist.OfType<Park>().ToList().FindAll(v => v.Type.Contains(type)).Count();
                     }
@@ -186,7 +186,13 @@ namespace DataModel
 
                     break;
                 case "3":
-                    //Placelist.OfType<Park>().ToList().Join<>
+                    var qry = Placelist.OfType<Beach>().ToList().OrderBy(v => v.Name).ToList();
+                    Console.WriteLine("Alphabetical Order:" );
+                    foreach (var item in qry)
+                    {
+                        Console.WriteLine(item);
+                    } 
+                   
                     break;
                 
                 default:
