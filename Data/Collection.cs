@@ -163,7 +163,7 @@ namespace DataModel
         {
             Console.WriteLine("Option 1) Get Total Number of Beachs");
             Console.WriteLine("Option 2) Get Total Number of Type Parks");
-            Console.WriteLine("Option 3) Get  ");
+            Console.WriteLine("Option 3) Get the alphabetical order ");
             Console.WriteLine("Option 4) Edit a beach");
             var input = Console.ReadLine();
             switch (input)
@@ -186,9 +186,9 @@ namespace DataModel
 
                     break;
                 case "3":
-                    var qry = Placelist.OfType<Beach>().ToList().OrderBy(v => v.Name).ToList();
+                    var alphabet = Placelist.OfType<Park>().ToList().OrderBy(v => v.Park_Name).ToList();
                     Console.WriteLine("Alphabetical Order:" );
-                    foreach (var item in qry)
+                    foreach (var item in alphabet)
                     {
                         Console.WriteLine(item);
                     } 
