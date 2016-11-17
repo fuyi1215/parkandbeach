@@ -67,8 +67,10 @@ namespace DataModel
                     Console.WriteLine("Location of the Beach:");
                     var Bloc = Console.ReadLine();
                     Console.WriteLine("Zip of the Beach:");
-                    var Bzip = Console.ReadLine();
-                    var beach = new Beach(Bname, Bloc, Bphone, Bzip);
+                    var BZip = Console.ReadLine();
+                    Console.WriteLine("longitude and latitude of the Beach:");
+                    var Blonglat = Console.ReadLine();
+                    var beach = new Beach(Bname, Bloc, Bphone,BZip, Blonglat);
                     Placelist.Add(beach);
                     //parks.Add(new Park(name, type, loc, int.Parse(zip)));
                     Console.WriteLine("\nResults: \n" + beach.ToString());
@@ -92,7 +94,7 @@ namespace DataModel
                  || r.Location_1.Contains(search))));
             var beachesreults = Placelist.OfType<Beach>().ToList<Beach>().FindAll(
                 r => (int.TryParse(search, out i) && (r.ID == i )|| r.zip_code.Contains(search)
-                 || r.phone.Contains(search)
+                 || r.phoneNumber.Contains(search)
                  || r.Name.Contains(search)
                  || r.Location.Contains(search)));
             Console.WriteLine("\nResults: \n");
@@ -124,7 +126,7 @@ namespace DataModel
                     if (name.Length > 0) park.Park_Name = name;
                     if (type.Length > 0) park.Park_Type = type;
                     if (loc.Length > 0) park.Location_1 = loc;
-                    if (zip.Length > 0) park.zip_code = zip;
+                    if (zip.Length == 4) park.zip_code = zip;
 
                     Console.WriteLine("\nResults: \n" + park.ToString());
                     break;
@@ -141,7 +143,7 @@ namespace DataModel
                     var Bzip = Console.ReadLine();
                     var Beach = Placelist.OfType<Beach>().ToList<Beach>().Find(p => p.ID == int.Parse(Bid));
                     if (Bname.Length > 0) Beach.Name = Bname;
-                    if (Bphone.Length > 0)Beach.phone = Bphone;
+                    if (Bphone.Length > 0)Beach.phoneNumber = Bphone;
                     if (Bloc.Length > 0) Beach.Location = Bloc;
                    
                     Console.WriteLine("\nResults: \n" + Beach.ToString());
