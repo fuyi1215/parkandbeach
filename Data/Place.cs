@@ -9,24 +9,20 @@ namespace DataModel
 {
     public class Place
     {
-        //private string _zip;
+        private string Zip;
         protected static int id = 0;
-        private string Name;
-        private string Location;
-        private string Type;
-        private int Zip;
+        public string Name;
+        public string Location;
+        public string Type;
+       
 
 
         public Place()
         {
             id++;
-            Name = string.Empty;
-            Location = string.Empty;
-            Type = string.Empty;
-            Zip = 0;
 
         }
-        public Place(string name, string loc, string type, int zip)
+        public Place(string name, string loc, string type, string zip)
         {
             id++;
             Name = name;
@@ -74,7 +70,7 @@ namespace DataModel
         }
 
         //property to get or set zip
-        public int  zip_code
+        public string  zip_code
         {
             get
             {
@@ -82,10 +78,17 @@ namespace DataModel
             }
             set
             {
-                
-                Zip = value;
+               // if (Regex.Match(value,"d{ 5})(?:[^\\s]d{4}?$").Success)
+                //Zip = value;
+                Zip = "12345";
+                if (!Regex.Match(Zip, @"^\d{5}$").Success)
+                {
+                    Console.WriteLine("Invalid zip code");
+                }
             }
         }
+    
+        
 
 
 
@@ -96,7 +99,7 @@ namespace DataModel
         {
             
             return string.Format("ID:{0,3}  Name:{1,10},Park Type: {2,10} Zip:{3,7} Location: {4}"
-                                    , id, Name, Type , Zip.ToString(), Location);
+                                    , id, Name, Type , Zip, Location);
         }
 
         public static string[] Csvsplit(string csvline)

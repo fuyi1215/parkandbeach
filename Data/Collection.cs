@@ -54,7 +54,7 @@ namespace DataModel
                     var loc = Console.ReadLine();
                     Console.WriteLine("Zip of the park:");
                     var zip = Console.ReadLine();
-                    var park = new Park(name, type, loc, Int32.Parse(zip));
+                    var park = new Park(name, type, loc, zip);
                     Placelist.Add(park);
                     //parks.Add(new Park(name, type, loc, int.Parse(zip)));
                     Console.WriteLine("\nResults: \n" + park.ToString());
@@ -67,8 +67,10 @@ namespace DataModel
                     Console.WriteLine("Location of the Beach:");
                     var Bloc = Console.ReadLine();
                     Console.WriteLine("Zip of the Beach:");
-                    var Bzip = Console.ReadLine();
-                    var beach = new Beach(Bname, Bloc, Bphone, Int32.Parse(Bzip));
+                    var BZip = Console.ReadLine();
+                    Console.WriteLine("longitude and latitude of the Beach:");
+                    var Blonglat = Console.ReadLine();
+                    var beach = new Beach(Bname, Bloc, Bphone,BZip, Blonglat);
                     Placelist.Add(beach);
                     //parks.Add(new Park(name, type, loc, int.Parse(zip)));
                     Console.WriteLine("\nResults: \n" + beach.ToString());
@@ -78,6 +80,7 @@ namespace DataModel
             }
         }
 
+
         public void search()
         {
             Console.WriteLine("Enter search text:");
@@ -85,15 +88,15 @@ namespace DataModel
             int i;
 
              var Parksresults = Placelist.OfType<Park>().ToList<Park>().FindAll(
-                 (r => (int.TryParse(search, out i) && (r.FID == i || r.Zip_Code == i) 
+                 (r => (int.TryParse(search, out i) && (r.FID == i || r.zipcode .Contains(search)) 
                  || r.Park_Type.Contains(search) 
                  || r.Park_Name.Contains(search) 
                  || r.Location_1.Contains(search))));
             var beachesreults = Placelist.OfType<Beach>().ToList<Beach>().FindAll(
-                r => (int.TryParse(search, out i) && (r.ID == i)
-                 || r.phone.Contains(search)
-                 || r.name.Contains(search)
-                 || r.thelocation.Contains(search)));
+                r => (int.TryParse(search, out i) && (r.ID == i )|| r.zip_code.Contains(search)
+                 || r.phoneNumber.Contains(search)
+                 || r.Name.Contains(search)
+                 || r.Location.Contains(search)));
             Console.WriteLine("\nResults: \n");
             foreach (var park in Parksresults)
                 Console.WriteLine(park.ToString());
@@ -123,7 +126,7 @@ namespace DataModel
                     if (name.Length > 0) park.Park_Name = name;
                     if (type.Length > 0) park.Park_Type = type;
                     if (loc.Length > 0) park.Location_1 = loc;
-                    if (zip.Length > 0) park.Zip_Code = int.Parse(zip);
+                    if (zip.Length == 4) park.zip_code = zip;
 
                     Console.WriteLine("\nResults: \n" + park.ToString());
                     break;
@@ -136,14 +139,13 @@ namespace DataModel
                     var Bphone = Console.ReadLine();
                     Console.WriteLine("Location of the Beach:");
                     var Bloc = Console.ReadLine();
-                    //Console.WriteLine("Zip of the park:");
-                    //var Bzip = Console.ReadLine();
+                    Console.WriteLine("Zip of the park:");
+                    var Bzip = Console.ReadLine();
                     var Beach = Placelist.OfType<Beach>().ToList<Beach>().Find(p => p.ID == int.Parse(Bid));
-                    if (Bname.Length > 0) Beach.name = Bname;
-                    if (Bphone.Length > 0)Beach.phone = Bphone;
-                    if (Bloc.Length > 0) Beach.thelocation = Bloc;
-                    //if (Bzip.Length > 0) Beach. = int.Parse(Bzip);
-
+                    if (Bname.Length > 0) Beach.Name = Bname;
+                    if (Bphone.Length > 0)Beach.phoneNumber = Bphone;
+                    if (Bloc.Length > 0) Beach.Location = Bloc;
+                   
                     Console.WriteLine("\nResults: \n" + Beach.ToString());
                     break;
                 default:
@@ -151,29 +153,7 @@ namespace DataModel
             }
         }
 
-        //public void search()
-        //{
-        //    Console.WriteLine("Enter search text:");
-        //    var search = Console.ReadLine();
-        //    int i;
-
-        //    var Parksresults = Placelist.OfType<Park>().ToList<Park>().FindAll(
-        //        (r => (int.TryParse(search, out i) && (r.FID == i || r.Zip_Code == i)
-        //        || r.Park_Type.Contains(search)
-        //        || r.Park_Name.Contains(search)
-        //        || r.Location_1.Contains(search))));
-        //    var beachesreults = Placelist.OfType<Beach>().ToList<Beach>().FindAll(
-        //        r => (int.TryParse(search, out i) && (r.ID == i || r.Zip == i)
-        //         || r.phone.Contains(search)
-        //         || r.Name.Contains(search)
-        //         || r.Location.Contains(search)));
-        //    Console.WriteLine("\nResults: \n");
-        //    foreach (var park in Parksresults)
-        //        Console.WriteLine(park.ToString());
-        //    foreach (var beach in beachesreults)
-        //        Console.WriteLine(beach.ToString());
-        //}
-
+       
         public void display()
         {
             Console.WriteLine( this.ToString());
@@ -183,54 +163,36 @@ namespace DataModel
         {
             Console.WriteLine("Option 1) Get Total Number of Beachs");
             Console.WriteLine("Option 2) Get Total Number of Type Parks");
-            Console.WriteLine("Option 3) Get Mutilevel Ordering for the name, address");
-            Console.WriteLine("Option 4) Get Location Join the table");
-            
+            Console.WriteLine("Option 3) Get the alphabetical order ");
+            Console.WriteLine("Option 4) Edit a beach");
             var input = Console.ReadLine();
             switch (input)
             {
                 case "1":
-                    var TN_B= Placelist.OfType<Beach>().ToList().FindAll(v => v.theType == "Beach").Count();
-                    Console.WriteLine("Total Number of beach:"+ TN_B.ToString());
+                    var TN_B = Placelist.OfType<Beach>().ToList().FindAll(v => v.Type == "Beach").Count();
+                    Console.WriteLine("Total Number of beach:" + TN_B.ToString());
                     break;
                 case "2":
-                 
-                        var NumberTypequary = from p in Placelist
-                                          where !string.IsNullOrEmpty(p.theType) 
-                                          group p by p.theType into ty
-                                          select new { TN = ty.Count(), P = ty.Key };
-                        foreach (var item in NumberTypequary)
-                            Console.WriteLine(item.P + " " + item.TN);
-                        //TN_T = Placelist.OfType<Park>().ToList().FindAll(v => v.Type.Contains(type)).Count();
-                    //}
-                    //else
-                       // TN_T = Placelist.FindAll(p => );
-                    //Console.WriteLine("Total Number of Type:" + TN_T.ToString());
+                    Console.WriteLine("Enter the type Parks (if not enter it will display all");
+                    var type = Console.ReadLine();
+                    int TN_T = 0;
+                    if (type == null)
+                    {
+                        TN_T = Placelist.OfType<Park>().ToList().FindAll(v => v.Type.Contains(type)).Count();
+                    }
+                    else
+                        TN_T = Placelist.OfType<Park>().ToList().Count();
+                    Console.WriteLine("Total Number:" + TN_T.ToString());
 
                     break;
                 case "3":
-                    var AphaNamequary = from p in Placelist
-                                      orderby p.name ascending,p.theType descending, p.thelocation
-                                      select new { p.name, p.theType} ;
-                    foreach(var item in AphaNamequary)
-                        Console.WriteLine("Name:" + item.name + " Type: " + item.theType);
-                    
-                    break;
-                case "4":
-                    
-                    var Locationsql = from p in Placelist.OfType<Park>()
-                                      select new {
-                                          ID = p.FID,
-                                          Location = p.Location_1.Substring(0,p.Location_1.IndexOf('(')),
-                                          lnglat =p.Location_1.Substring(p.Location_1.IndexOf('('))   }; //p.Location_1.Substring(2) };
-
-                    var Joinsql = from p in Placelist.OfType<Park>()
-                                  join L in Locationsql on p.FID equals L.ID
-                                  select new { L.ID, p.Park_Name, Address = L.Location, LngLat = L.lnglat };
-                    foreach (var item in Joinsql)
-                        Console.WriteLine(item.Park_Name + " " + item.LngLat + " " + item.Address);
-
-
+                    var alphabet = Placelist.OfType<Park>().ToList().OrderBy(v => v.Park_Name).ToList();
+                    Console.WriteLine("Alphabetical Order:" );
+                    foreach (var item in alphabet)
+                    {
+                        Console.WriteLine(item);
+                    } 
+                   
                     break;
                 
                 default:
@@ -273,7 +235,7 @@ namespace DataModel
                 var BeachRow  = Place.CsvRow(_content).Skip(1);
 
                 //Beaches = new List<Beach>();
-                return BeachRow.Select(v => Beach.FromCsv(v)).OfType<Beach>()
+                return BeachRow.Select(v => Beach.FromCsv(v))
                                   .ToList();
             }
 
