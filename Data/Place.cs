@@ -9,12 +9,12 @@ namespace DataModel
 {
     public class Place
     {
-        private string _zip;
+        private string Zip;
         protected static int id = 0;
         public string Name;
         public string Location;
         public string Type;
-        public int Zip;
+       
 
 
         public Place()
@@ -22,7 +22,7 @@ namespace DataModel
             id++;
 
         }
-        public Place(string name, string loc, string type, int zip)
+        public Place(string name, string loc, string type, string zip)
         {
             id++;
             Name = name;
@@ -70,7 +70,7 @@ namespace DataModel
         }
 
         //property to get or set zip
-        public int  zip_code
+        public string  zip_code
         {
             get
             {
@@ -78,10 +78,17 @@ namespace DataModel
             }
             set
             {
-                
-                Zip = value;
+               // if (Regex.Match(value,"d{ 5})(?:[^\\s]d{4}?$").Success)
+                //Zip = value;
+                Zip = "12345";
+                if (!Regex.Match(Zip, @"^\d{5}$").Success)
+                {
+                    Console.WriteLine("Invalid zip code");
+                }
             }
         }
+    
+        
 
 
 
