@@ -54,7 +54,7 @@ namespace DataModel
                     var loc = Console.ReadLine();
                     Console.WriteLine("Zip of the park:");
                     var zip = Console.ReadLine();
-                    var park = new Park(name, type, loc, Int32.Parse(zip));
+                    var park = new Park(name, type, loc, zip);
                     Placelist.Add(park);
                     //parks.Add(new Park(name, type, loc, int.Parse(zip)));
                     Console.WriteLine("\nResults: \n" + park.ToString());
@@ -68,7 +68,7 @@ namespace DataModel
                     var Bloc = Console.ReadLine();
                     Console.WriteLine("Zip of the Beach:");
                     var Bzip = Console.ReadLine();
-                    var beach = new Beach(Bname, Bloc, Bphone, Int32.Parse(Bzip));
+                    var beach = new Beach(Bname, Bloc, Bphone, Bzip);
                     Placelist.Add(beach);
                     //parks.Add(new Park(name, type, loc, int.Parse(zip)));
                     Console.WriteLine("\nResults: \n" + beach.ToString());
@@ -76,6 +76,7 @@ namespace DataModel
                 default:
                     break;
             }
+        }
 
 
         public void search()
@@ -85,12 +86,12 @@ namespace DataModel
             int i;
 
              var Parksresults = Placelist.OfType<Park>().ToList<Park>().FindAll(
-                 (r => (int.TryParse(search, out i) && (r.FID == i || r.Zip_Code == i) 
+                 (r => (int.TryParse(search, out i) && (r.FID == i || r.zipcode .Contains(search)) 
                  || r.Park_Type.Contains(search) 
                  || r.Park_Name.Contains(search) 
                  || r.Location_1.Contains(search))));
             var beachesreults = Placelist.OfType<Beach>().ToList<Beach>().FindAll(
-                r => (int.TryParse(search, out i) && (r.ID == i || r.Zip == i)
+                r => (int.TryParse(search, out i) && (r.ID == i )|| r.zip_code.Contains(search)
                  || r.phone.Contains(search)
                  || r.Name.Contains(search)
                  || r.Location.Contains(search)));
@@ -123,7 +124,7 @@ namespace DataModel
                     if (name.Length > 0) park.Park_Name = name;
                     if (type.Length > 0) park.Park_Type = type;
                     if (loc.Length > 0) park.Location_1 = loc;
-                    if (zip.Length > 0) park.Zip_Code = int.Parse(zip);
+                    if (zip.Length > 0) park.zip_code = zip;
 
                     Console.WriteLine("\nResults: \n" + park.ToString());
                     break;
@@ -142,8 +143,7 @@ namespace DataModel
                     if (Bname.Length > 0) Beach.Name = Bname;
                     if (Bphone.Length > 0)Beach.phone = Bphone;
                     if (Bloc.Length > 0) Beach.Location = Bloc;
-                    if (Bzip.Length > 0) Beach.Zip = int.Parse(Bzip);
-
+                   
                     Console.WriteLine("\nResults: \n" + Beach.ToString());
                     break;
                 default:
@@ -151,29 +151,7 @@ namespace DataModel
             }
         }
 
-        public void search()
-        {
-            Console.WriteLine("Enter search text:");
-            var search = Console.ReadLine();
-            int i;
-
-            var Parksresults = Placelist.OfType<Park>().ToList<Park>().FindAll(
-                (r => (int.TryParse(search, out i) && (r.FID == i || r.Zip_Code == i)
-                || r.Park_Type.Contains(search)
-                || r.Park_Name.Contains(search)
-                || r.Location_1.Contains(search))));
-            var beachesreults = Placelist.OfType<Beach>().ToList<Beach>().FindAll(
-                r => (int.TryParse(search, out i) && (r.ID == i || r.Zip == i)
-                 || r.phone.Contains(search)
-                 || r.Name.Contains(search)
-                 || r.Location.Contains(search)));
-            Console.WriteLine("\nResults: \n");
-            foreach (var park in Parksresults)
-                Console.WriteLine(park.ToString());
-            foreach (var beach in beachesreults)
-                Console.WriteLine(beach.ToString());
-        }
-
+       
         public void display()
         {
             Console.WriteLine( this.ToString());
