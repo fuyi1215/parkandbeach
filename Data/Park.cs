@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace DataModel
 {
@@ -14,7 +15,7 @@ namespace DataModel
 
         public string Park_Type { get; set; }
         
-        public int Zip_Code { get; set; }
+        private string Zip_Code { get; set; }
 
         //[JsonConverter(typeof(BoolConverter))]
         public int Aqua_Feat__Pool { get; set; }
@@ -76,17 +77,32 @@ namespace DataModel
             FID = id;
             base.name = Park_Name;
             base.thelocation = Location_1;
-            base.zip_code = Zip_Code;
+            base.zip_code = zip_code;
         }
 
-        public Park(string Name, string location,string type, int zip):base(Name,location,type,zip)
+        public Park(string Name, string location,string type, string zip):base(Name,location,type,zip)
         {
             FID = id;
             Park_Name = Name;
             Location_1 = location;
             Park_Type = type;
-            Zip_Code = zip; 
+            Zip_Code = zip_code; 
 
+        }
+        public string zipcode
+        {
+            get
+            {
+                return Zip_Code;
+            }
+            set
+            {
+                Zip_Code = "12345";
+                if (!Regex.Match(Zip_Code, @"^\d{5}$").Success)
+                {
+                    Console.WriteLine("Invalid zip code");
+                }
+            }
         }
 
         public static Park FromCsv(string csvLine)
@@ -102,7 +118,7 @@ namespace DataModel
                 Park park = new Park();
                 park.Park_Name = values[0];
                 park.Park_Type = values[1];
-                park.Zip_Code = Convert.ToInt32(values[2]);
+                park.Zip_Code = values[2];
                 park.Aqua_Feat__Pool = string.IsNullOrEmpty(values[3]) ? 0 : Convert.ToInt32(values[3]);
                 park.Aqua_Feat__Spray = string.IsNullOrEmpty(values[4])? 0 : Convert.ToInt32(values[4]);
                 park.Backstop__Practice = values[5];
@@ -153,6 +169,7 @@ namespace DataModel
             }
        
     }
+
         public override string ToString()
         {
             return string.Format( "ID:{0,3}  Name:{1,10},Park Type: {2,10} Zip:{3,7} Location: {4}" ,FID, Park_Name,  Park_Type , Zip_Code,Location_1);
