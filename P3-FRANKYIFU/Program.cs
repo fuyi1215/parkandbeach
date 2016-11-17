@@ -35,7 +35,8 @@ namespace P3_FRANKYIFU
                 Console.WriteLine("Option 2) Modify an item through user input");
                 Console.WriteLine("Option 3) Search based on user input and display the matched results");
                 Console.WriteLine("Option 4) Display count of all the stored items");
-                Console.WriteLine("Option 5) exit");
+                Console.WriteLine("Option 5) LINQ");
+                Console.WriteLine("Option 6) exit");
                 var input = Console.ReadLine();
                 if (input == "0") placeDB.load();
                 else if (input == "1") placeDB.add();
